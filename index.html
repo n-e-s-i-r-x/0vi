@@ -75,9 +75,9 @@
             top: -20%;
             left: 50%;
             transform: translateX(-50%);
-            width: 1000px;
-            height: 1000px;
-            background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%);
+            width: 1200px;
+            height: 1200px;
+            background: radial-gradient(circle, rgba(255,255,255,0.04) 0%, rgba(120,120,255,0.01) 40%, transparent 70%);
             z-index: 0;
             pointer-events: none;
         }
@@ -90,6 +90,17 @@
             pointer-events: none;
         }
 
+        /* Scroll reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         /* Nav */
         nav {
             position: fixed;
@@ -97,13 +108,14 @@
             left: 0;
             right: 0;
             z-index: 100;
-            padding: 16px 40px;
+            padding: 18px 48px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            backdrop-filter: blur(20px);
-            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(24px) saturate(1.2);
+            background: rgba(0,0,0,0.75);
             border-bottom: 1px solid rgba(255,255,255,0.06);
+            transition: background 0.3s;
         }
 
         .nav-logo {
@@ -113,7 +125,7 @@
         }
 
         .nav-logo-mark {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 900;
             color: #fff;
             letter-spacing: -1px;
@@ -125,89 +137,100 @@
             color: #666;
         }
 
-        .nav-links { display: flex; gap: 28px; align-items: center; }
-        .nav-links a { color: #888; text-decoration: none; font-size: 13px; font-weight: 500; transition: color 0.3s; }
-        .nav-links a:hover { color: #fff; }
-
-        .nav-cta {
-            background: #fff;
-            color: #000;
-            padding: 8px 20px;
-            border-radius: 8px;
-            font-weight: 700;
-            font-size: 13px;
+        .nav-links { display: flex; gap: 32px; align-items: center; }
+        .nav-links a {
+            color: #777;
             text-decoration: none;
-            transition: all 0.3s;
+            font-size: 13px;
+            font-weight: 500;
+            transition: color 0.3s, transform 0.2s;
+            position: relative;
         }
-        .nav-cta:hover { opacity: 0.85; transform: translateY(-1px); }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #fff;
+            transition: width 0.3s ease;
+        }
+        .nav-links a:hover { color: #fff; }
+        .nav-links a:hover::after { width: 100%; }
 
         section { position: relative; z-index: 1; }
 
         /* Hero */
         .hero {
-            min-height: 50vh;
+            min-height: 55vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 80px 40px 24px;
+            padding: 120px 48px 48px;
         }
 
         .hero-badge {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 6px 16px;
+            gap: 10px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            padding: 8px 20px;
             border-radius: 100px;
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 500;
-            color: #aaa;
-            margin-bottom: 20px;
+            color: #999;
+            margin-bottom: 28px;
             animation: fadeInUp 0.8s ease;
+            backdrop-filter: blur(8px);
         }
 
         .hero-badge-dot {
-            width: 6px;
-            height: 6px;
+            width: 7px;
+            height: 7px;
             background: #fff;
             border-radius: 50%;
             animation: pulse 2s infinite;
+            box-shadow: 0 0 8px rgba(255,255,255,0.4);
         }
 
         .hero-title {
-            font-size: 80px;
+            font-size: 96px;
             font-weight: 900;
-            line-height: 1;
-            letter-spacing: -4px;
-            margin-bottom: 16px;
+            line-height: 0.95;
+            letter-spacing: -5px;
+            margin-bottom: 24px;
             animation: fadeInUp 0.8s ease 0.1s both;
         }
 
-        .hero-title-white { color: #fff; }
+        .hero-title-white {
+            color: #fff;
+            text-shadow: 0 0 80px rgba(255,255,255,0.15);
+        }
 
         .hero-subtitle {
-            font-size: 20px;
+            font-size: 19px;
             font-weight: 400;
-            color: #777;
-            max-width: 600px;
-            line-height: 1.6;
-            margin-bottom: 28px;
+            color: #666;
+            max-width: 620px;
+            line-height: 1.7;
+            margin-bottom: 36px;
             animation: fadeInUp 0.8s ease 0.2s both;
         }
 
         .hero-stats {
             display: flex;
-            gap: 48px;
+            gap: 56px;
             margin-bottom: 48px;
             animation: fadeInUp 0.8s ease 0.3s both;
         }
 
         .hero-stat { text-align: center; }
-        .hero-stat-value { font-size: 36px; font-weight: 800; color: #fff; letter-spacing: -1px; }
-        .hero-stat-label { font-size: 12px; font-weight: 500; color: #555; margin-top: 4px; text-transform: uppercase; letter-spacing: 1px; }
+        .hero-stat-value { font-size: 40px; font-weight: 800; color: #fff; letter-spacing: -1px; }
+        .hero-stat-label { font-size: 11px; font-weight: 600; color: #555; margin-top: 6px; text-transform: uppercase; letter-spacing: 1.5px; }
 
         .hero-actions {
             display: flex;
@@ -218,97 +241,133 @@
         .btn-primary {
             background: #fff;
             color: #000;
-            padding: 14px 32px;
-            border-radius: 12px;
+            padding: 16px 36px;
+            border-radius: 14px;
             font-weight: 700;
             font-size: 15px;
             text-decoration: none;
-            transition: all 0.3s;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             border: none;
             cursor: pointer;
+            box-shadow: 0 0 0 0 rgba(255,255,255,0);
         }
-        .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
+        .btn-primary:hover {
+            opacity: 1;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(255,255,255,0.15);
+        }
 
         .btn-secondary {
-            background: rgba(255,255,255,0.05);
-            color: #E2E8F0;
-            padding: 14px 32px;
-            border-radius: 12px;
+            background: rgba(255,255,255,0.04);
+            color: #ccc;
+            padding: 16px 36px;
+            border-radius: 14px;
             font-weight: 600;
             font-size: 15px;
             text-decoration: none;
-            transition: all 0.3s;
-            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid rgba(255,255,255,0.08);
         }
-        .btn-secondary:hover { background: rgba(255,255,255,0.1); }
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.08);
+            transform: translateY(-3px);
+            border-color: rgba(255,255,255,0.15);
+        }
 
         .divider {
             width: 100%;
             height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            margin: 0;
         }
 
         /* Capabilities */
         .capabilities {
-            padding: 32px 40px;
+            padding: 80px 48px;
             max-width: 1200px;
             margin: 0 auto;
         }
 
         .section-label {
-            font-size: 12px;
-            font-weight: 600;
+            font-size: 11px;
+            font-weight: 700;
             color: #555;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 8px;
+            letter-spacing: 3px;
+            margin-bottom: 12px;
         }
 
         .section-title {
-            font-size: 42px;
-            font-weight: 800;
-            letter-spacing: -2px;
-            line-height: 1.1;
-            margin-bottom: 10px;
+            font-size: 52px;
+            font-weight: 900;
+            letter-spacing: -3px;
+            line-height: 1.05;
+            margin-bottom: 14px;
             color: #fff;
         }
 
         .section-desc {
-            font-size: 15px;
+            font-size: 16px;
             color: #666;
-            line-height: 1.6;
-            max-width: 640px;
-            margin-bottom: 20px;
+            line-height: 1.7;
+            max-width: 560px;
+            margin-bottom: 40px;
         }
 
         .cap-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 16px;
+            gap: 20px;
         }
 
         .cap-card {
             background: rgba(255,255,255,0.02);
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 16px;
-            padding: 28px 20px;
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 36px 24px 32px;
             text-align: center;
-            transition: all 0.3s;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cap-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+            opacity: 0;
+            transition: opacity 0.4s;
         }
 
         .cap-card:hover {
             background: rgba(255,255,255,0.04);
-            border-color: rgba(255,255,255,0.12);
-            transform: translateY(-4px);
+            border-color: rgba(255,255,255,0.1);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
         }
 
-        .cap-icon { font-size: 28px; margin-bottom: 16px; }
-        .cap-title { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 8px; }
-        .cap-desc { font-size: 13px; color: #666; line-height: 1.5; }
+        .cap-card:hover::before {
+            opacity: 1;
+        }
+
+        .cap-icon {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: rgba(255,255,255,0.3);
+            margin-bottom: 20px;
+        }
+        .cap-title { font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 10px; }
+        .cap-desc { font-size: 13px; color: #666; line-height: 1.6; }
 
         /* Models */
         .models {
-            padding: 32px 40px;
+            padding: 80px 48px;
             max-width: 1200px;
             margin: 0 auto;
         }
@@ -316,57 +375,76 @@
         .models-grid {
             display: grid;
             grid-template-columns: repeat(6, 1fr);
-            gap: 12px;
+            gap: 16px;
         }
 
         .model-badge {
             font-size: 10px;
             font-weight: 700;
-            padding: 2px 8px;
-            border-radius: 4px;
-            margin-left: 6px;
+            padding: 3px 10px;
+            border-radius: 6px;
+            margin-left: 4px;
             vertical-align: middle;
         }
 
-        .badge-fast { background: rgba(74,158,255,0.12); color: #4a9eff; border: 1px solid #1a3050; }
-        .badge-rapid { background: rgba(239,68,68,0.12); color: #ef4444; border: 1px solid #3a1010; }
-        .badge-beta { background: rgba(255,45,120,0.12); color: #ff2d78; border: 1px solid #3a1030; }
-        .badge-einstein { background: rgba(249,115,22,0.12); color: #f97316; border: 1px solid #3a1a00; }
+        .badge-fast { background: rgba(74,158,255,0.15); color: #4a9eff; border: 1px solid rgba(74,158,255,0.2); }
+        .badge-rapid { background: rgba(239,68,68,0.15); color: #ef4444; border: 1px solid rgba(239,68,68,0.2); }
+        .badge-beta { background: rgba(255,45,120,0.15); color: #ff2d78; border: 1px solid rgba(255,45,120,0.2); }
+        .badge-einstein { background: rgba(249,115,22,0.15); color: #f97316; border: 1px solid rgba(249,115,22,0.2); }
 
         .model-card {
             background: rgba(255,255,255,0.02);
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 14px;
-            padding: 20px 16px;
-            transition: all 0.3s;
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 18px;
+            padding: 28px 18px 24px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
             text-align: center;
+            overflow: hidden;
         }
 
+        .model-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: rgba(255,255,255,0.08);
+            transition: all 0.4s;
+        }
+
+        .model-card:nth-child(2)::before { background: #4a9eff; }
+        .model-card:nth-child(3)::before { background: #ef4444; }
+        .model-card:nth-child(5)::before { background: #ff2d78; }
+        .model-card:nth-child(6)::before { background: #f97316; }
+
         .model-card:hover {
-            background: rgba(255,255,255,0.04);
-            border-color: rgba(255,255,255,0.12);
-            transform: translateY(-4px);
+            background: rgba(255,255,255,0.05);
+            border-color: rgba(255,255,255,0.1);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
         }
 
         .model-tag {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 22px;
+            font-size: 26px;
             font-weight: 700;
             color: #fff;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
 
         .model-name {
             font-size: 14px;
             font-weight: 600;
-            color: #ccc;
-            margin-bottom: 6px;
+            color: #bbb;
+            margin-bottom: 8px;
         }
 
         .model-desc {
             font-size: 12px;
             color: #555;
+            line-height: 1.4;
         }
 
         .model-speed {
@@ -375,7 +453,7 @@
 
         /* Void V1 Flash Section */
         .void-section {
-            padding: 32px 40px;
+            padding: 80px 48px;
             max-width: 1200px;
             margin: 0 auto;
         }
@@ -384,83 +462,107 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 24px;
+            margin-bottom: 28px;
         }
 
         .void-badge {
             background: rgba(255,255,255,0.08);
             color: #fff;
-            padding: 4px 12px;
-            border-radius: 6px;
-            font-size: 12px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
+            padding: 6px 16px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
         .void-desc {
             font-size: 17px;
-            color: #888;
-            line-height: 1.8;
+            color: #777;
+            line-height: 1.9;
             max-width: 800px;
-            margin-bottom: 28px;
+            margin-bottom: 40px;
         }
 
         .void-specs {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-            margin-bottom: 16px;
+            gap: 20px;
+            margin-bottom: 24px;
         }
 
         .spec-card {
             background: rgba(255,255,255,0.02);
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 16px;
-            padding: 28px;
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 40px 28px;
             text-align: center;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .spec-card:hover {
+            background: rgba(255,255,255,0.04);
+            border-color: rgba(255,255,255,0.1);
+            transform: translateY(-4px);
         }
 
         .spec-value {
-            font-size: 40px;
-            font-weight: 800;
+            font-size: 52px;
+            font-weight: 900;
             color: #fff;
-            letter-spacing: -1px;
-            margin-bottom: 4px;
+            letter-spacing: -2px;
+            margin-bottom: 8px;
+            text-shadow: 0 0 60px rgba(255,255,255,0.08);
         }
 
         .spec-label {
             font-size: 13px;
             color: #555;
             font-weight: 500;
+            letter-spacing: 0.5px;
         }
 
         /* Benchmarks Inline */
         .bench-inline {
-            margin-top: 24px;
+            margin-top: 40px;
+        }
+
+        .bench-header {
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 20px;
+            letter-spacing: -0.5px;
         }
 
         .bench-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
+            gap: 14px;
         }
 
         .bench-item {
             background: rgba(255,255,255,0.02);
             border: 1px solid rgba(255,255,255,0.04);
-            border-radius: 10px;
-            padding: 16px 20px;
+            border-radius: 12px;
+            padding: 18px 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            transition: all 0.3s;
+        }
+
+        .bench-item:hover {
+            background: rgba(255,255,255,0.04);
+            border-color: rgba(255,255,255,0.08);
         }
 
         .bench-name { font-size: 13px; color: #888; font-weight: 500; }
-        .bench-score { font-size: 16px; font-weight: 700; color: #fff; }
+        .bench-score { font-size: 17px; font-weight: 700; color: #fff; letter-spacing: -0.5px; }
 
         /* API Section */
         .api-section {
-            padding: 32px 40px;
+            padding: 80px 48px;
             max-width: 900px;
             margin: 0 auto;
         }
@@ -468,23 +570,30 @@
         .api-info-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            margin-bottom: 32px;
+            gap: 20px;
+            margin-bottom: 40px;
         }
 
         .api-info-card {
             background: rgba(255,255,255,0.02);
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 12px;
-            padding: 20px;
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.3s;
+        }
+
+        .api-info-card:hover {
+            background: rgba(255,255,255,0.04);
+            border-color: rgba(255,255,255,0.08);
         }
 
         .api-info-label {
-            font-size: 11px;
+            font-size: 10px;
             color: #555;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 8px;
+            letter-spacing: 1.5px;
+            margin-bottom: 10px;
+            font-weight: 700;
         }
 
         .api-info-value {
@@ -495,28 +604,33 @@
         }
 
         .api-code {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 12px;
-            padding: 24px;
-            margin-bottom: 16px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 20px;
             overflow-x: auto;
+            transition: all 0.3s;
+        }
+
+        .api-code:hover {
+            border-color: rgba(255,255,255,0.08);
         }
 
         .api-code-header {
-            font-size: 12px;
+            font-size: 11px;
             color: #555;
-            font-weight: 600;
-            margin-bottom: 12px;
+            font-weight: 700;
+            margin-bottom: 16px;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
         }
 
         .api-code pre {
             font-family: 'JetBrains Mono', monospace;
             font-size: 13px;
             color: #aaa;
-            line-height: 1.7;
+            line-height: 1.8;
             white-space: pre;
             overflow-x: auto;
         }
@@ -528,47 +642,55 @@
 
         .reasoning-effort {
             background: rgba(255,255,255,0.02);
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 12px;
-            padding: 24px;
-            margin-top: 24px;
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 28px;
+            margin-top: 28px;
         }
 
         .effort-options {
             display: flex;
-            gap: 12px;
-            margin-top: 16px;
+            gap: 14px;
+            margin-top: 20px;
         }
 
         .effort-tag {
             font-family: 'JetBrains Mono', monospace;
             font-size: 13px;
             font-weight: 600;
-            padding: 8px 20px;
-            border-radius: 8px;
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.08);
-            color: #aaa;
+            padding: 10px 24px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            color: #999;
+            transition: all 0.3s;
+        }
+
+        .effort-tag:hover {
+            background: rgba(255,255,255,0.06);
+            border-color: rgba(255,255,255,0.12);
+            color: #fff;
+            transform: translateY(-2px);
         }
 
         /* Rate Limits */
         .rate-section {
-            padding: 32px 40px;
+            padding: 80px 48px;
             max-width: 900px;
             margin: 0 auto;
         }
 
         .rate-card {
             background: rgba(255,255,255,0.02);
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 16px;
-            padding: 32px;
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 40px;
         }
 
         .rate-card p {
             font-size: 15px;
             color: #777;
-            line-height: 1.7;
+            line-height: 1.8;
         }
 
         .rate-card strong { color: #fff; font-weight: 600; }
@@ -577,25 +699,33 @@
         .errors-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 24px;
+            margin-top: 32px;
         }
 
         .errors-table th {
             text-align: left;
-            padding: 10px 16px;
-            font-size: 12px;
-            font-weight: 600;
+            padding: 14px 20px;
+            font-size: 11px;
+            font-weight: 700;
             color: #555;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
             border-bottom: 1px solid rgba(255,255,255,0.06);
         }
 
         .errors-table td {
-            padding: 10px 16px;
+            padding: 14px 20px;
             font-size: 14px;
             color: #888;
             border-bottom: 1px solid rgba(255,255,255,0.03);
+        }
+
+        .errors-table tr {
+            transition: background 0.2s;
+        }
+
+        .errors-table tbody tr:hover {
+            background: rgba(255,255,255,0.02);
         }
 
         .errors-table td:first-child {
@@ -608,38 +738,40 @@
         footer {
             position: relative;
             z-index: 1;
-            padding: 24px 40px;
+            padding: 40px 48px;
             border-top: 1px solid rgba(255,255,255,0.04);
             text-align: center;
         }
 
-        .footer-text { font-size: 13px; color: #444; }
+        .footer-text { font-size: 13px; color: #333; letter-spacing: 0.5px; }
 
         /* Animations */
         @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(24px); }
             to { opacity: 1; transform: translateY(0); }
         }
         @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
+            0%, 100% { opacity: 1; box-shadow: 0 0 8px rgba(255,255,255,0.4); }
+            50% { opacity: 0.4; box-shadow: 0 0 4px rgba(255,255,255,0.2); }
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .hero-title { font-size: 48px; letter-spacing: -2px; }
+            .hero-title { font-size: 52px; letter-spacing: -3px; }
             .hero-subtitle { font-size: 16px; }
-            .hero-stats { gap: 24px; flex-wrap: wrap; justify-content: center; }
-            .hero-stat-value { font-size: 28px; }
+            .hero-stats { gap: 28px; flex-wrap: wrap; justify-content: center; }
+            .hero-stat-value { font-size: 30px; }
             .cap-grid { grid-template-columns: 1fr 1fr; }
             .models-grid { grid-template-columns: repeat(3, 1fr); }
             .void-specs { grid-template-columns: 1fr; }
             .bench-grid { grid-template-columns: 1fr 1fr; }
             .api-info-grid { grid-template-columns: 1fr; }
-            .section-title { font-size: 32px; }
+            .section-title { font-size: 36px; letter-spacing: -2px; }
             .hero-actions { flex-direction: column; align-items: center; }
-            nav { padding: 12px 20px; }
+            nav { padding: 14px 24px; }
             .nav-links { display: none; }
+            .hero { padding: 100px 24px 40px; }
+            .capabilities, .models, .void-section, .api-section, .rate-section { padding: 56px 24px; }
         }
     </style>
 </head>
@@ -657,7 +789,6 @@
             <a href="#void-v1-flash">Void V1 Flash</a>
             <a href="#void">Void</a>
             <a href="#api">API</a>
-            <a href="https://0vai.vercel.app" class="nav-cta">Launch App</a>
         </div>
     </nav>
 
@@ -686,47 +817,47 @@
 
     <!-- Capabilities -->
     <section class="capabilities" id="capabilities">
-        <div class="section-label">Capabilities</div>
-        <h2 class="section-title">What 0v AI Can Do</h2>
-        <p class="section-desc">Feature toggles, tools, and pages built into a single interface. Toggle them on or off depending on what you need. All powered by Void.</p>
+        <div class="section-label reveal">Capabilities</div>
+        <h2 class="section-title reveal">What 0v AI Can Do</h2>
+        <p class="section-desc reveal">Feature toggles, tools, and pages built into a single interface. Toggle them on or off depending on what you need. All powered by Void.</p>
 
         <div class="cap-grid">
-            <div class="cap-card">
+            <div class="cap-card reveal">
                 <div class="cap-icon">Think</div>
                 <div class="cap-title">Reasoning</div>
                 <div class="cap-desc">Advanced multi step reasoning with chain of thought. Toggle it on to let models think deeper before answering.</div>
             </div>
-            <div class="cap-card">
+            <div class="cap-card reveal">
                 <div class="cap-icon">Search</div>
                 <div class="cap-title">Web Search</div>
                 <div class="cap-desc">Real time web search that updates its own data. Finds current information from across the internet.</div>
             </div>
-            <div class="cap-card">
+            <div class="cap-card reveal">
                 <div class="cap-icon">Code</div>
                 <div class="cap-title">Code Generation</div>
                 <div class="cap-desc">Ultra coding mode. Write, debug, and explain code across multiple programming languages.</div>
             </div>
-            <div class="cap-card">
+            <div class="cap-card reveal">
                 <div class="cap-icon">Image</div>
                 <div class="cap-title">Image Generation</div>
                 <div class="cap-desc">Generate images from text descriptions using AI visual synthesis.</div>
             </div>
-            <div class="cap-card">
+            <div class="cap-card reveal">
                 <div class="cap-icon">Human</div>
                 <div class="cap-title">Humanizer</div>
                 <div class="cap-desc">Paste text and it gets humanized automatically. Makes AI content sound natural and authentic.</div>
             </div>
-            <div class="cap-card">
+            <div class="cap-card reveal">
                 <div class="cap-icon">Agent</div>
                 <div class="cap-title">Agentic Model</div>
                 <div class="cap-desc">Built for tools like OpenCode, Claude Code, Codex, AnyClaw, and any agentic coding environment.</div>
             </div>
-            <div class="cap-card">
+            <div class="cap-card reveal">
                 <div class="cap-icon">Key</div>
                 <div class="cap-title">Api Key</div>
                 <div class="cap-desc">Generate API keys with the voidv1-flash model. Free, OpenAI compatible endpoint for any client.</div>
             </div>
-            <div class="cap-card">
+            <div class="cap-card reveal">
                 <div class="cap-icon">Oasis</div>
                 <div class="cap-title">Oasis</div>
                 <div class="cap-desc">3D interactive galaxy visualization showing all 6 models and the Void brain node with real time status.</div>
@@ -738,37 +869,37 @@
 
     <!-- Models -->
     <section class="models" id="models">
-        <div class="section-label">Models</div>
-        <h2 class="section-title">Pick Your Speed</h2>
-        <p class="section-desc">Six model tiers ranging from instant responses to deep reasoning. Choose based on your task complexity.</p>
+        <div class="section-label reveal">Models</div>
+        <h2 class="section-title reveal">Pick Your Speed</h2>
+        <p class="section-desc reveal">Six model tiers ranging from instant responses to deep reasoning. Choose based on your task complexity.</p>
 
         <div class="models-grid">
-            <div class="model-card">
+            <div class="model-card reveal">
                 <div class="model-tag">0</div>
                 <div class="model-name">Normal</div>
                 <div class="model-desc">Normal.</div>
             </div>
-            <div class="model-card">
+            <div class="model-card reveal">
                 <div class="model-tag">00 <span class="model-badge badge-fast">Fast</span></div>
                 <div class="model-name">Fastest</div>
                 <div class="model-desc">Fastest.</div>
             </div>
-            <div class="model-card">
+            <div class="model-card reveal">
                 <div class="model-tag">000 <span class="model-badge badge-rapid">Rapid</span></div>
                 <div class="model-name">Highest</div>
                 <div class="model-desc">Highest. Fast.</div>
             </div>
-            <div class="model-card">
+            <div class="model-card reveal">
                 <div class="model-tag">V</div>
                 <div class="model-name">Smart</div>
                 <div class="model-desc">Smart. Uncensored.</div>
             </div>
-            <div class="model-card">
+            <div class="model-card reveal">
                 <div class="model-tag">VV <span class="model-badge badge-beta">Beta</span></div>
                 <div class="model-name">Coding</div>
                 <div class="model-desc">Coding. Smartest.</div>
             </div>
-            <div class="model-card">
+            <div class="model-card reveal">
                 <div class="model-tag">VVV <span class="model-badge badge-einstein">Einstein</span></div>
                 <div class="model-name">Einstein</div>
                 <div class="model-desc">Smartest. Slow.</div>
@@ -780,60 +911,58 @@
 
     <!-- Void V1 Flash -->
     <section class="void-section" id="void-v1-flash">
-        <div class="void-header">
-            <div class="section-label">Api key model</div>
+        <div class="void-header reveal">
+            <div class="section-label" style="margin-bottom:0">Api key model</div>
             <span class="void-badge">NEW</span>
         </div>
 
-        <h2 class="section-title">Void V1 Flash</h2>
+        <h2 class="section-title reveal" style="margin-top:16px">Void V1 Flash</h2>
 
-        <p class="void-desc">
+        <p class="void-desc reveal">
             Void V1 Flash is an agentic model created by Void. Built for tools like OpenCode, Claude Code, Codex, AnyClaw, and any agentic coding environment. It is a high capacity Mixture of Experts (MoE) reasoning model designed for large scale, high complexity tasks. Features 1 trillion total parameters and 50 billion active parameters per forward pass to enable efficient inference. Optimized for advanced reasoning, code generation, long horizon planning, and complex agentic workflows. Supports an extended context window of up to 1 million tokens, allowing coherent understanding and generation across extensive documents, large codebases, and multi step interactions.
         </p>
 
         <div class="void-specs">
-            <div class="spec-card">
+            <div class="spec-card reveal">
                 <div class="spec-value">1T</div>
                 <div class="spec-label">Total Parameters</div>
             </div>
-            <div class="spec-card">
+            <div class="spec-card reveal">
                 <div class="spec-value">50B</div>
                 <div class="spec-label">Active Parameters per Forward Pass</div>
             </div>
-            <div class="spec-card">
+            <div class="spec-card reveal">
                 <div class="spec-value">1M</div>
                 <div class="spec-label">Token Context Window</div>
             </div>
         </div>
 
         <div class="bench-inline">
-            <div class="bench-inline-header">
-                <h3 style="font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 12px;">Benchmarks</h3>
-            </div>
+            <div class="bench-header reveal">Benchmarks</div>
             <div class="bench-grid">
-                <div class="bench-item"><span class="bench-name">SWE-Bench Verified</span><span class="bench-score">88.9%</span></div>
-                <div class="bench-item"><span class="bench-name">Terminal-Bench 2.0</span><span class="bench-score">70.1%</span></div>
-                <div class="bench-item"><span class="bench-name">AIME 2025</span><span class="bench-score">93.0%</span></div>
-                <div class="bench-item"><span class="bench-name">GPQA Diamond</span><span class="bench-score">90.0%</span></div>
-                <div class="bench-item"><span class="bench-name">MMLU-Pro</span><span class="bench-score">94.7%</span></div>
-                <div class="bench-item"><span class="bench-name">GSM8K</span><span class="bench-score">99.2%</span></div>
-                <div class="bench-item"><span class="bench-name">HumanEval</span><span class="bench-score">98.8%</span></div>
-                <div class="bench-item"><span class="bench-name">MBPP</span><span class="bench-score">97.9%</span></div>
-                <div class="bench-item"><span class="bench-name">BBH</span><span class="bench-score">95.6%</span></div>
-                <div class="bench-item"><span class="bench-name">ARC-Challenge</span><span class="bench-score">96.1%</span></div>
-                <div class="bench-item"><span class="bench-name">HellaSwag</span><span class="bench-score">97.4%</span></div>
-                <div class="bench-item"><span class="bench-name">Long Context (1M)</span><span class="bench-score">82.0%</span></div>
-                <div class="bench-item"><span class="bench-name">Needle Retrieval</span><span class="bench-score">99.5%</span></div>
-                <div class="bench-item"><span class="bench-name">RULER</span><span class="bench-score">94.9%</span></div>
-                <div class="bench-item"><span class="bench-name">AgentBench</span><span class="bench-score">92.8%</span></div>
-                <div class="bench-item"><span class="bench-name">ToolBench</span><span class="bench-score">94.6%</span></div>
-                <div class="bench-item"><span class="bench-name">WebArena</span><span class="bench-score">89.3%</span></div>
-                <div class="bench-item"><span class="bench-name">MMMU</span><span class="bench-score">90.1%</span></div>
-                <div class="bench-item"><span class="bench-name">MathVista</span><span class="bench-score">92.7%</span></div>
-                <div class="bench-item"><span class="bench-name">ChartQA</span><span class="bench-score">95.8%</span></div>
-                <div class="bench-item"><span class="bench-name">DocVQA</span><span class="bench-score">96.5%</span></div>
-                <div class="bench-item"><span class="bench-name">TruthfulQA</span><span class="bench-score">90.8%</span></div>
-                <div class="bench-item"><span class="bench-name">Hallucination Resistance</span><span class="bench-score">93.9%</span></div>
+                <div class="bench-item reveal"><span class="bench-name">SWE-Bench Verified</span><span class="bench-score">88.9%</span></div>
+                <div class="bench-item reveal"><span class="bench-name">Terminal-Bench 2.0</span><span class="bench-score">70.1%</span></div>
+                <div class="bench-item reveal"><span class="bench-name">AIME 2025</span><span class="bench-score">93.0%</span></div>
+                <div class="bench-item reveal"><span class="bench-name">GPQA Diamond</span><span class="bench-score">90.0%</span></div>
+                <div class="bench-item reveal"><span class="bench-name">MMLU-Pro</span><span class="bench-score">94.7%</span></div>
+                <div class="bench-item reveal"><span class="bench-name">GSM8K</span><span class="bench-score">99.2%</span></div>
+                <div class="bench-item reveal"><span class="bench-name">HumanEval</span><span class="bench-score">98.8%</span></div>
+                <div class="bench-item reveal"><span class="bench-name">MBPP</span><span class="bench-score">97.9%</span></div>
+                <div class="bench-item reveal"><span class="bench-name">BBH</span><span class="bench-score">95.6%</span></div>
+                <div class="bench-item reveal"><span class="bench-name">ARC-Challenge</span><span class="bench-score">96.1%</span></div>
+                <div class="bench-item reveal"><span class="bench-name">HellaSwag</span><span class="bench-score">97.4%</span></div>
+                <div class="bench-item reveal"><span class="bench-name">Long Context (1M)</span><span class="bench-score">82.0%</span></div>
+                <div class="bench-item reveal"><span class="bench-name">Needle Retrieval</span><span class="bench-score">99.5%</span></div>
+                <div class="bench-item reveal"><span class="bench-name">RULER</span><span class="bench-score">94.9%</span></div>
+                <div class="bench-item reveal"><span class="bench-name">AgentBench</span><span class="bench-score">92.8%</span></div>
+                <div class="bench-item reveal"><span class="bench-name">ToolBench</span><span class="bench-score">94.6%</span></div>
+                <div class="bench-item reveal"><span class="bench-name">WebArena</span><span class="bench-score">89.3%</span></div>
+                <div class="bench-item reveal"><span class="bench-name">MMMU</span><span class="bench-score">90.1%</span></div>
+                <div class="bench-item reveal"><span class="bench-name">MathVista</span><span class="bench-score">92.7%</span></div>
+                <div class="bench-item reveal"><span class="bench-name">ChartQA</span><span class="bench-score">95.8%</span></div>
+                <div class="bench-item reveal"><span class="bench-name">DocVQA</span><span class="bench-score">96.5%</span></div>
+                <div class="bench-item reveal"><span class="bench-name">TruthfulQA</span><span class="bench-score">90.8%</span></div>
+                <div class="bench-item reveal"><span class="bench-name">Hallucination Resistance</span><span class="bench-score">93.9%</span></div>
             </div>
         </div>
     </section>
@@ -842,11 +971,11 @@
 
     <!-- Void -->
     <section class="void-section" id="void">
-        <div class="section-label">The Engine</div>
+        <div class="section-label reveal">The Engine</div>
 
-        <h2 class="section-title">Void</h2>
+        <h2 class="section-title reveal">Void</h2>
 
-        <p class="void-desc">
+        <p class="void-desc reveal">
             A model that has internet access? Sounds fake right? But nah. Void is the brain behind 0v AI. Not a model. Not a wrapper. The engine that powers everything. Void has internet access. It can upgrade its own files. It has access to GitHub and Vercel. It can do terminal things like running commands, managing deployments, and pushing code. It can search the web in real time and learn from every message a user gives it. It can read and modify files, interact with APIs, and basically do anything a developer sitting at a terminal could do. Every model tier on 0v AI, from 0 to VVV, runs on Void. It is the reasoning core, the decision maker, the thing that actually thinks. Void V1 Flash is just one of the models Void created. Think of Void as the mind and Void V1 Flash as one of its tools. Void has no public specs, no parameter count, no context window listed anywhere. It does not need one. It just runs. The whole platform, every response, every search, every line of code, flows through Void first. Void built this. Void runs this. Everything else is just an interface to it.
         </p>
     </section>
@@ -855,30 +984,30 @@
 
     <!-- API -->
     <section class="api-section" id="api">
-        <div class="section-label">Developer</div>
-        <h2 class="section-title">API Reference</h2>
-        <p class="section-desc">OpenAI compatible API. Works in SillyTavern, Open WebUI, Cursor, Windsurf, and any OpenAI compatible client.</p>
+        <div class="section-label reveal">Developer</div>
+        <h2 class="section-title reveal">API Reference</h2>
+        <p class="section-desc reveal">OpenAI compatible API. Works in SillyTavern, Open WebUI, Cursor, Windsurf, and any OpenAI compatible client.</p>
 
         <div class="api-info-grid">
-            <div class="api-info-card">
+            <div class="api-info-card reveal">
                 <div class="api-info-label">Base URL</div>
                 <div class="api-info-value">https://0vai.vercel.app/api/v1</div>
             </div>
-            <div class="api-info-card">
+            <div class="api-info-card reveal">
                 <div class="api-info-label">Api key Model</div>
                 <div class="api-info-value">voidv1-flash</div>
             </div>
-            <div class="api-info-card">
+            <div class="api-info-card reveal">
                 <div class="api-info-label">Auth</div>
                 <div class="api-info-value">Bearer token</div>
             </div>
-            <div class="api-info-card">
+            <div class="api-info-card reveal">
                 <div class="api-info-label">Features</div>
                 <div class="api-info-value">streaming / tools / response_format / reasoning</div>
             </div>
         </div>
 
-        <div class="api-code">
+        <div class="api-code reveal">
             <div class="api-code-header">cURL</div>
 <pre>curl https://0vai.vercel.app/api/v1/chat/completions \
   -H "Authorization: Bearer $VOID_API_KEY" \
@@ -886,7 +1015,7 @@
   -d '{"messages":[{"role":"user","content":"Hi"}],"stream":false}'</pre>
         </div>
 
-        <div class="api-code">
+        <div class="api-code reveal">
             <div class="api-code-header">JavaScript</div>
 <pre>fetch('/api/v1/chat/completions', {
   method: 'POST',
@@ -900,7 +1029,7 @@
 });</pre>
         </div>
 
-        <div class="api-code">
+        <div class="api-code reveal">
             <div class="api-code-header">Python</div>
 <pre>import os, requests
 
@@ -912,9 +1041,9 @@ r = requests.post(
 print(r.json())</pre>
         </div>
 
-        <div class="reasoning-effort">
+        <div class="reasoning-effort reveal">
             <div class="api-code-header">Reasoning Effort</div>
-            <p style="font-size: 14px; color: #666; margin-bottom: 12px;">Toggle reasoning depth per request. The model field is ignored and always serves voidv1-flash.</p>
+            <p style="font-size: 14px; color: #666; margin-bottom: 12px; line-height: 1.6;">Toggle reasoning depth per request. The model field is ignored and always serves voidv1-flash.</p>
             <div class="effort-options">
                 <div class="effort-tag">low</div>
                 <div class="effort-tag">medium</div>
@@ -927,10 +1056,10 @@ print(r.json())</pre>
 
     <!-- Rate Limits & Errors -->
     <section class="rate-section">
-        <div class="section-label">Limits</div>
-        <h2 class="section-title" style="margin-bottom: 24px;">Rate Limits and Errors</h2>
+        <div class="section-label reveal">Limits</div>
+        <h2 class="section-title reveal" style="margin-bottom: 28px;">Rate Limits and Errors</h2>
 
-        <div class="rate-card">
+        <div class="rate-card reveal">
             <p>This API is <strong>free</strong> and <strong>IP rate limited</strong>. Even if you use a different API key, requests are still tracked by your IP so switching keys will not reset your limit. If you get rate limited, just wait 1 hour and it resets automatically.</p>
 
             <table class="errors-table">
@@ -958,14 +1087,14 @@ print(r.json())</pre>
     </footer>
 
     <script>
-    // Plexus animation: moving nodes connected by thin dark lines
+    // Plexus animation: moving nodes connected by lines with glowing dots
     (function() {
         const canvas = document.getElementById('plexus');
         const ctx = canvas.getContext('2d');
         let W, H;
         const nodes = [];
-        const NUM = 50;
-        const LINK_DIST = 150;
+        const NUM = 60;
+        const LINK_DIST = 180;
 
         function resize() {
             W = canvas.width = window.innerWidth;
@@ -979,8 +1108,9 @@ print(r.json())</pre>
             nodes.push({
                 x: Math.random() * W,
                 y: Math.random() * H,
-                vx: (Math.random() - 0.5) * 0.4,
-                vy: (Math.random() - 0.5) * 0.4
+                vx: (Math.random() - 0.5) * 0.35,
+                vy: (Math.random() - 0.5) * 0.35,
+                radius: Math.random() * 1.5 + 0.5
             });
         }
 
@@ -996,16 +1126,16 @@ print(r.json())</pre>
                 if (n.y < 0 || n.y > H) n.vy *= -1;
             }
 
-            // Draw lines between close nodes (10% white = rgba(255,255,255,0.1))
+            // Draw lines between close nodes
             for (let i = 0; i < NUM; i++) {
                 for (let j = i + 1; j < NUM; j++) {
                     const dx = nodes[i].x - nodes[j].x;
                     const dy = nodes[i].y - nodes[j].y;
                     const dist = Math.sqrt(dx * dx + dy * dy);
                     if (dist < LINK_DIST) {
-                        const alpha = 0.12 * (1 - dist / LINK_DIST);
+                        const alpha = 0.35 * (1 - dist / LINK_DIST);
                         ctx.strokeStyle = 'rgba(255,255,255,' + alpha + ')';
-                        ctx.lineWidth = 0.5;
+                        ctx.lineWidth = 0.8;
                         ctx.beginPath();
                         ctx.moveTo(nodes[i].x, nodes[i].y);
                         ctx.lineTo(nodes[j].x, nodes[j].y);
@@ -1014,9 +1144,55 @@ print(r.json())</pre>
                 }
             }
 
+            // Draw glowing node dots
+            for (let i = 0; i < NUM; i++) {
+                const n = nodes[i];
+                const gradient = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, n.radius * 4);
+                gradient.addColorStop(0, 'rgba(255,255,255,0.5)');
+                gradient.addColorStop(0.5, 'rgba(255,255,255,0.1)');
+                gradient.addColorStop(1, 'rgba(255,255,255,0)');
+                ctx.fillStyle = gradient;
+                ctx.beginPath();
+                ctx.arc(n.x, n.y, n.radius * 4, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Core dot
+                ctx.fillStyle = 'rgba(255,255,255,0.7)';
+                ctx.beginPath();
+                ctx.arc(n.x, n.y, n.radius, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
             requestAnimationFrame(draw);
         }
         draw();
+    })();
+
+    // Scroll reveal with staggered delay
+    (function() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    // Find siblings in same parent for stagger
+                    const parent = entry.target.parentElement;
+                    const siblings = parent.querySelectorAll('.reveal');
+                    let idx = 0;
+                    siblings.forEach((sib, i) => {
+                        if (sib === entry.target) idx = i;
+                    });
+                    const delay = Math.min(idx * 60, 400);
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, delay);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.08,
+            rootMargin: '0px 0px -40px 0px'
+        });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     })();
     </script>
 </body>
